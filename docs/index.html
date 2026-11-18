@@ -30,7 +30,17 @@ footer{height:38px;flex:none;display:flex;align-items:center;justify-content:spa
 .eb{font-size:13px;font-weight:600;letter-spacing:2px;color:#6B7280;text-transform:uppercase}
 h1.st{font-family:'Space Grotesk',Arial,sans-serif;font-weight:600;font-size:36px;color:#14213D;line-height:1.1;margin-top:6px;letter-spacing:-.3px}
 .hrow{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
-.hint{font-size:15px;color:#14213D;background:#FFE47A;border-radius:6px;padding:6px 12px;font-weight:600;white-space:nowrap}
+.acts{display:flex;align-items:center;gap:14px;flex:none}
+.ic,.ar{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hint{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#3B4252;background:#FCFBF8;border:1.5px solid #E2E0D8;border-radius:999px;padding:7px 14px;white-space:nowrap}
+.hint .ic{width:16px;height:16px;flex:none;color:#6B7280}
+.cta{display:inline-flex;align-items:center;gap:12px;text-align:left;font-family:inherit;background:#FFE47A;color:#14213D;border:1.5px solid #EBC94A;border-radius:10px;padding:9px 16px;cursor:pointer;white-space:nowrap;transition:background-color .15s,box-shadow .15s}
+.cta .l{display:block;font-size:15px;font-weight:700;line-height:1.2}
+.cta .s2{display:block;font-size:12.5px;font-weight:500;color:#6B5A1E;line-height:1.2;margin-top:2px}
+.cta .ar{width:18px;height:18px;flex:none;transition:transform .15s}
+.cta:hover{background:#FFD84D}
+.cta:hover .ar{transform:translateX(3px)}
+.wl{font-size:15px;line-height:1.4;color:#5F6675;margin-top:7px}
 .lead{font-size:17px;line-height:1.45;color:#5F6675;max-width:1100px}
 .fine{font-size:14px;line-height:1.45;color:#6B7280}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0}
@@ -56,7 +66,7 @@ td.sh{width:230px}
 .pct.hi{background:#FFE47A;color:#14213D}
 tr.pl{cursor:pointer;transition:background-color .12s}
 tr.pl:hover,tr.pl:focus{background:#F1EEE4;outline:none}
-.go{margin-left:10px;font-size:13px;font-weight:600;color:#2A78D6;opacity:0;transition:opacity .12s}
+.go{margin-left:10px;font-size:13px;font-weight:600;color:#2A78D6;opacity:.5;transition:opacity .12s}
 .bowl .go{color:#D4572A}
 tr.pl:hover .go,tr.pl:focus .go{opacity:1}
 .nextl{font-size:14px;color:#6B7280;margin-top:10px}
@@ -134,6 +144,25 @@ tr.pl:hover .go,tr.pl:focus .go{opacity:1}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .tile{background:#14213D;border-radius:12px;padding:12px 18px;color:#D5DCE8;font-size:14px;line-height:1.4}
 .tile b{display:block;font-family:'Space Grotesk',Arial,sans-serif;font-size:24px;color:#FFE47A;line-height:1.15;margin-bottom:2px}
+/* first-run cue */
+#coach{position:absolute;top:176px;left:1130px;z-index:7;display:flex;align-items:flex-start;gap:12px;width:430px;background:#14213D;border-radius:12px;padding:14px 16px;box-shadow:0 14px 34px rgba(13,22,40,.34);animation:coachIn .42s cubic-bezier(.16,1,.3,1)}
+#coach[hidden]{display:none}
+@keyframes coachIn{from{opacity:0;transform:translateY(-10px)}}
+#coach .cpt{position:absolute;top:-6px;left:200px;width:13px;height:13px;margin-left:-6.5px;background:#14213D;transform:rotate(45deg);border-radius:2px}
+#coach .ic{width:22px;height:22px;flex:none;color:#FFE47A;margin-top:2px}
+#coach .ctx{flex:1;min-width:0}
+#coach .ct{font-family:'Space Grotesk',Arial,sans-serif;font-size:16px;font-weight:600;color:#F5F4EF;line-height:1.2}
+#coach .cd{font-size:13.5px;line-height:1.45;color:#AEB9CC;margin-top:3px}
+#coach .cd b{color:#FFE47A;font-weight:600}
+#coach .cx{flex:none;align-self:center;font-family:inherit;font-size:13px;font-weight:600;color:#14213D;background:#FFE47A;border:none;border-radius:7px;padding:7px 12px;cursor:pointer;transition:background-color .15s}
+#coach .cx:hover{background:#FFD84D}
+/* keyboard affordance */
+:focus-visible{outline:2.5px solid #2A78D6;outline-offset:2px}
+nav button:focus-visible,#coach .cx:focus-visible{outline:2.5px solid #FFE47A;outline-offset:2px}
+tr.pl:focus-visible{outline:2.5px solid #2A78D6;outline-offset:-3px;background:#F1EEE4}
+.bowl tr.pl:focus-visible{outline-color:#D4572A}
+tr.pl:focus-visible .go{opacity:1}
+@media (prefers-reduced-motion:reduce){#coach,.screen.on{animation:none}.cta,.cta .ar,.go,tr.pl,#coach .cx{transition:none}}
 </style>
 </head>
 <body>
@@ -141,15 +170,24 @@ tr.pl:hover .go,tr.pl:focus .go{opacity:1}
 <header>
   <div class="brand"><p class="t">Selector’s War Room</p><p class="s">SupeRR Selector Season 2 · Most reliable under pressure · Rajdeep Chatale</p></div>
   <nav role="tablist">
-    <button role="tab" id="tab-answer" aria-selected="true"><span class="n">1</span>The answer</button>
-    <button role="tab" id="tab-how" aria-selected="false"><span class="n">2</span>How it works</button>
-    <button role="tab" id="tab-whatif" aria-selected="false"><span class="n">3</span>What if?</button>
-    <button role="tab" id="tab-sure" aria-selected="false"><span class="n">4</span>How sure</button>
+    <button role="tab" id="tab-answer" aria-controls="sc-answer" aria-selected="true"><span class="n">1</span>The answer</button>
+    <button role="tab" id="tab-how" aria-controls="sc-how" aria-selected="false"><span class="n">2</span>How it works</button>
+    <button role="tab" id="tab-whatif" aria-controls="sc-whatif" aria-selected="false"><span class="n">3</span>What if?</button>
+    <button role="tab" id="tab-sure" aria-controls="sc-sure" aria-selected="false"><span class="n">4</span>How sure</button>
   </nav>
 </header>
+<div id="coach" hidden>
+  <div class="cpt" aria-hidden="true"></div>
+  <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7h4.5M12.5 7h8M3.5 13h9.5M17.5 13h3M3.5 19h6.5M15.5 19h5"/><circle cx="10.2" cy="7" r="2.2"/><circle cx="15.2" cy="13" r="2.2"/><circle cx="12.8" cy="19" r="2.2"/></svg>
+  <div class="ctx">
+    <p class="ct">This is a live model, not slides</p>
+    <p class="cd">Re-run my ranking on <b>your own settings</b> — or click any player for his notes.</p>
+  </div>
+  <button class="cx" type="button">Got it</button>
+</div>
 <main>
-  <section class="screen on" id="sc-answer" role="tabpanel">
-    <div class="hrow"><div><p class="eb">The short version</p><h1 class="st">My top 10s, ranked on what repeats under pressure</h1></div><p class="hint">Click any player to read his notes</p></div>
+  <section class="screen on" id="sc-answer" role="tabpanel" aria-labelledby="tab-answer">
+    <div class="hrow"><div><p class="eb">The short version</p><h1 class="st">My top 10s, ranked on what repeats under pressure</h1></div><div class="acts"><p class="hint"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5 6 16.2 9.3 13 11.8 18.6 14.1 17.6 11.6 12 16.3 12Z"/></svg>Click any player for his notes</p><button class="cta" id="go-whatif" type="button"><span><span class="l">Test my ranking yourself</span><span class="s2">Change a setting, watch who stays</span></span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12h13.5M12.5 6.5 18 12l-5.5 5.5"/></svg></button></div></div>
     <div class="two">
       <div class="card list bat"><div class="lh"><h2>Batters</h2></div>
         <table><thead><tr><th>#</th><th>Player</th><th class="r">Rating</th><th>Top 10 in resamples</th></tr></thead><tbody><tr class="pl" data-p="Suryakumar Yadav" tabindex="0"><td class="rk">1</td><td class="nm">Suryakumar Yadav<span class="go">Notes ›</span></td><td class="num">20.9</td><td class="sh"><div class="sbar"><span style="width:96%"></span></div><span class="pct hi">96%</span></td></tr><tr class="pl" data-p="Abhishek Sharma" tabindex="0"><td class="rk">2</td><td class="nm">Abhishek Sharma<span class="go">Notes ›</span></td><td class="num">19.9</td><td class="sh"><div class="sbar"><span style="width:92%"></span></div><span class="pct hi">92%</span></td></tr><tr class="pl" data-p="Phil Salt" tabindex="0"><td class="rk">3</td><td class="nm">Phil Salt<span class="go">Notes ›</span></td><td class="num">17.0</td><td class="sh"><div class="sbar"><span style="width:72%"></span></div><span class="pct">72%</span></td></tr><tr class="pl" data-p="Heinrich Klaasen" tabindex="0"><td class="rk">4</td><td class="nm">Heinrich Klaasen<span class="go">Notes ›</span></td><td class="num">16.7</td><td class="sh"><div class="sbar"><span style="width:73%"></span></div><span class="pct">73%</span></td></tr><tr class="pl" data-p="Tim David" tabindex="0"><td class="rk">5</td><td class="nm">Tim David<span class="go">Notes ›</span></td><td class="num">15.5</td><td class="sh"><div class="sbar"><span style="width:53%"></span></div><span class="pct">53%</span></td></tr><tr class="pl" data-p="Reeza Hendricks" tabindex="0"><td class="rk">6</td><td class="nm">Reeza Hendricks<span class="go">Notes ›</span></td><td class="num">15.1</td><td class="sh"><div class="sbar"><span style="width:56%"></span></div><span class="pct">56%</span></td></tr><tr class="pl" data-p="Vaibhav Sooryavanshi" tabindex="0"><td class="rk">7</td><td class="nm">Vaibhav Sooryavanshi<span class="go">Notes ›</span></td><td class="num">14.5</td><td class="sh"><div class="sbar"><span style="width:44%"></span></div><span class="pct">44%</span></td></tr><tr class="pl" data-p="Glenn Phillips" tabindex="0"><td class="rk">8</td><td class="nm">Glenn Phillips<span class="go">Notes ›</span></td><td class="num">13.8</td><td class="sh"><div class="sbar"><span style="width:44%"></span></div><span class="pct">44%</span></td></tr><tr class="pl" data-p="Namboori Tilak Varma" tabindex="0"><td class="rk">9</td><td class="nm">Namboori Tilak Varma<span class="go">Notes ›</span></td><td class="num">13.4</td><td class="sh"><div class="sbar"><span style="width:41%"></span></div><span class="pct">41%</span></td></tr><tr class="pl" data-p="Virat Kohli" tabindex="0"><td class="rk">10</td><td class="nm">Virat Kohli<span class="go">Notes ›</span></td><td class="num">12.2</td><td class="sh"><div class="sbar"><span style="width:35%"></span></div><span class="pct">35%</span></td></tr></tbody></table>
@@ -161,7 +199,7 @@ tr.pl:hover .go,tr.pl:focus .go{opacity:1}
     <p class="fine"><b>Rating:</b> runs above an average player in the same situation and against the same opposition, per 100 balls faced (batters) or per 24 balls bowled (bowlers), with pressure balls counting most. <b>Top 10 in resamples:</b> how often he stays top 10 when I redraw the matches 2,000 times; yellow = 75% or more. Each list is the ten who stay top 10 most often, ordered by rating.</p>
   </section>
 
-  <section class="screen" id="sc-how" role="tabpanel">
+  <section class="screen" id="sc-how" role="tabpanel" aria-labelledby="tab-how">
     <div><p class="eb">The method on one page</p><h1 class="st">How the model turns ball-by-ball data into two top 10s</h1></div>
     <div class="flow">
       <div class="frow"><div class="step"><div class="stop"><p class="sn">1</p><h3>The data</h3></div><p>883 matches, ball by ball. <b>735 rated</b>: IPL 2022–26 and full-member T20Is.</p></div><div class="arr" aria-hidden="true">→</div><div class="step"><div class="stop"><p class="sn">2</p><h3>Win chance</h3></div><p>A model gives the batting side’s <b>chance of winning before every ball</b>.</p></div><div class="arr" aria-hidden="true">→</div><div class="step"><div class="stop"><p class="sn">3</p><h3>Pressure Index</h3></div><p>How far a ball can swing that chance, ranked 0 to 100. <span class='hl'>Top 20% = pressure balls</span></p></div><div class="arr" aria-hidden="true">→</div><div class="step"><div class="stop"><p class="sn">4</p><h3>Ball value</h3></div><p><b>Runs above an average player</b> in that exact spot. A wicket is worth 8 runs.</p></div></div>
@@ -172,8 +210,8 @@ tr.pl:hover .go,tr.pl:focus .go{opacity:1}
     <p class="fine">A pressure ball is one in the top 20% of the Pressure Index (80 or more), about 48 a match. 77% of them come in the chase, and 45% in the middle overs, not only at the death. Full detail, formulas and checks are in my methodology report.</p>
   </section>
 
-  <section class="screen" id="sc-whatif" role="tabpanel">
-    <div><p class="eb">Test my ranking</p><h1 class="st">Change one setting and watch who stays</h1></div>
+  <section class="screen" id="sc-whatif" role="tabpanel" aria-labelledby="tab-whatif">
+    <div><p class="eb">Test my ranking</p><h1 class="st">Change one setting and watch who stays</h1><p class="wl">Click a ready-made what-if below, or mix the four settings yourself — both top 10s re-rank as you go.</p></div>
     <div class="wiwrap">
       <div class="wileft">
         <p class="lbl2">Pick a what if</p>
@@ -200,7 +238,7 @@ tr.pl:hover .go,tr.pl:focus .go{opacity:1}
     </div>
   </section>
 
-  <section class="screen" id="sc-sure" role="tabpanel">
+  <section class="screen" id="sc-sure" role="tabpanel" aria-labelledby="tab-sure">
     <div><p class="eb">Reliability</p><h1 class="st">How sure am I about each pick?</h1></div>
     <p class="lead">The bar is how often a player stays in the top 10 when I redraw the matches 2,000 times. The last column counts how many of the 90 what-if settings on this page keep him in the top 10.</p>
     <div class="two">
@@ -268,10 +306,17 @@ function show(t) {
     document.getElementById('sc-' + x).classList.toggle('on', x === t);
     document.getElementById('tab-' + x).setAttribute('aria-selected', x === t ? 'true' : 'false');
   });
-  cur = t; closeDrawer();
+  cur = t; closeDrawer(); hideCoach();
   try { history.replaceState(null, '', '#' + t); } catch (e) {}
 }
 TABS.forEach(t => document.getElementById('tab-' + t).addEventListener('click', () => show(t)));
+document.getElementById('go-whatif').addEventListener('click', () => show('whatif'));
+function hideCoach() {
+  const c = document.getElementById('coach');
+  if (!c || c.hidden) return;
+  c.hidden = true;
+  try { localStorage.setItem('wr-coach-v1', '1'); } catch (e) {}
+}
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeDrawer(); return; }
   if (!document.getElementById('drawer').hidden) return;
@@ -367,6 +412,33 @@ function survivors() {
 
 buildButtons(); render(); survivors();
 const start = location.hash.slice(1); if (TABS.includes(start)) show(start);
+
+/* first-run cue: selectors must learn the page is interactive */
+(function () {
+  const c = document.getElementById('coach');
+  let seen = false;
+  try { seen = localStorage.getItem('wr-coach-v1') === '1'; } catch (e) {}
+  if (seen || cur !== 'answer') return;
+  function boxInStage(el) {
+    const stage = document.getElementById('stage');
+    let x = 0, y = 0, node = el;
+    while (node && node !== stage) { x += node.offsetLeft; y += node.offsetTop; node = node.offsetParent; }
+    return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+  }
+  function place() {
+    const r = boxInStage(document.getElementById('go-whatif'));
+    const cx = r.x + r.w / 2;
+    const w = c.offsetWidth || 430;
+    const left = Math.min(Math.max(cx - w * 0.72, 40), 1600 - 40 - w);
+    c.style.top = (r.y + r.h + 12) + 'px';
+    c.style.left = left + 'px';
+    c.querySelector('.cpt').style.left = (cx - left) + 'px';
+  }
+  c.hidden = false;
+  place();
+  addEventListener('resize', place);
+  c.querySelector('.cx').addEventListener('click', hideCoach);
+})();
 </script>
 </body>
 </html>
