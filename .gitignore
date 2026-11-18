@@ -1,0 +1,11 @@
+# The data pack must never be committed (competition rule). Same for anything built ball by ball from it.
+data/raw/*
+!data/raw/README.md
+outputs/
+logs/
+scratch/
+*.pkl
+*.csv
+*.parquet
+__pycache__/
+.DS_Store
