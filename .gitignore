@@ -10,3 +10,10 @@ scratch/
 __pycache__/
 .DS_Store
 .vercel
+
+# Build directories the pipeline writes. Not committed: they are regenerated,
+# and docs/ is the published copy.
+deck/
+warroom/
+site/
+deck_backup_*.html

@@ -85,7 +85,7 @@ column says so rather than hiding it.
 | Step | Stage | What happens |
 |---:|---|---|
 | 1 | **Win chance** | Gradient-boosted models give the batting side's chance of winning before and after every ball. |
-| 2 | **Pressure Index** | How far the win chance could move on that ball, ranked 0–100 against every other ball. The top 20% are *pressure balls* — about 48 a match. |
+| 2 | **Pressure Index** | How far the win chance could move on that ball, ranked 0–100 against every other ball. The top 20% are *pressure balls*: **35,172** of the 175,862, about 48 a match. |
 | 3 | **Ball value** | Runs above an average player in that exact situation, with a wicket worth 8 runs. |
 | 4 | **Fair comparison** | Every ball adjusted for the opponent at the other end; bowlers also for ground, dew and home side. The pitch on the day is already absorbed by the baseline. |
 | 5 | **Pressure Rating** | Each ball weighted by its Index, then shrunk toward average on small samples (empirical Bayes). |
@@ -127,8 +127,9 @@ analytics. It ships **player ratings only — never ball-by-ball data.**
 
 ```
 .
-├── docs/
-│   └── index.html    Selector's War Room — served by GitHub Pages from /docs
+├── docs/             Published by GitHub Pages
+│   ├── index.html    Selector's War Room — hand-maintained, see the note below
+│   └── DESIGN.md     The dashboard's design system and the decisions behind it
 ├── scripts/          Full pipeline, numbered in run order (53 scripts + 2 shared libs)
 │   ├── lib_pwi.py        Pressure-Weighted Impact: ball value above expected,
 │   │                     weighted by Pressure Index, empirical-Bayes shrunk
@@ -169,12 +170,26 @@ Then work through the pipeline in order:
 | 5 | `12_final_ratings` | Player stats on pressure balls and first-pass ratings |
 | 6 | `30_conditions_table` → `33_ratings_v3` | Conditions, opponent and ground adjustments, and final ratings with 2,000 resamples |
 | 7 | `34_behaviour`, `35_form_model`, `36_wins` | Alternative pressure definitions, the form model, wins per season |
-| 8 | `37_deck_numbers_v3`, `39_warroom_data`, `40_warroom_page`, `56_warroom_site` | Every number in the report, and the dashboard build |
+| 8 | `37_deck_numbers_v3`, `39_warroom_data`, `40_warroom_page`, `56_warroom_site` | Every number in the report, and the original dashboard build (see the caveat below) |
 | 9 | `44_shot_choice`, `49_paired_splits` | Shot choice and execution; the 200-split test behind the opponent adjustment |
 
 The remaining scripts (`06`–`09`, `11`, `13`–`27`, `38`, `41`–`43`, `45`–`48`, `50`–`54`) are
 earlier iterations, validation tests, charts and report builds. They are kept deliberately so
 that every number can be traced back to the step that produced it.
+
+### Two caveats on stage 8
+
+**The dashboard is no longer generated.** `56_warroom_site.py` writes `site/index.html`, and
+that was the original source of the published page. `docs/index.html` has since been
+redesigned and maintained by hand — see [`docs/DESIGN.md`](docs/DESIGN.md). Re-running stage 8
+will not touch `docs/`, but **do not copy `site/index.html` over `docs/index.html`**: that
+would discard the current design. Every figure on the published page still comes from this
+pipeline and is checked against it.
+
+**Stage 8 needs the deck.** Fifteen scripts, including `56_warroom_site.py`, read from a
+`deck/` directory that holds the methodology report's slides. That directory is not in this
+repository, so stages 1–7 and 9 reproduce from the data pack alone, while stage 8 does not.
+Everything the ranking depends on lives in stages 1–7.
 
 ## Data policy
 
