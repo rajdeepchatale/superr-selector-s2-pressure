@@ -1,184 +1,190 @@
 # Selector's War Room — design specification
 
-The visual system for `docs/index.html`. Every rule here is implemented in that file's
-single `<style>` block. This document exists so the next change is a decision, not a guess.
+The visual system for `docs/index.html`. Every value here is implemented in that file's
+single `<style>` block and was measured, not estimated.
 
 ---
 
-## 1. Direction: the scorebook
+## 1. The world: Royals
 
-The design is grounded in cricket's own visual vernacular — the ruled scorebook and the
-match-day board — rather than in dashboard convention. That means **ruled columns, tabular
-figures, and ink on paper**, not cards floating on a grey field.
+The page is designed **for Rajasthan Royals specifically**, not for cricket generally and
+not for a dashboard template. The identity is drawn from the client and the place: Royals
+indigo and pink, Jaipur sandstone, marigold.
 
-Three consequences that govern everything below:
+This matters beyond decoration. The entry is read by RR's selection panel. A page built in
+their own colours argues, before a word is read, that the work was done for them.
 
-1. **Rules beat boxes.** A hairline separating two things is preferred to a container
-   enclosing each of them. Card chrome is spent only where a genuine panel exists.
-2. **Numerals are the subject.** This is a ranking. Figures get the tabular treatment, the
-   alignment and the weight; labels get out of the way.
-3. **One loud thing per screen.** Each tab has exactly one element allowed to shout. The
-   rest is quiet.
+**Mechanism in one sentence:** most deliveries cannot change a match, so rank players only
+on the ones that can.
 
-### Rejected directions, and why
+**The physical scene:** a selection panel reviewing candidates on a laptop or a meeting-room
+screen, sometimes printed. That scene decides the light. The page **field** is deep indigo
+so the artifact reads as branded and owned; the **data sits on sandstone sheets** so dense
+numeric tables stay as legible and printable as a scorecard. Dark chrome, light data.
+
+**Colour strategy: Committed.** One saturated field owns the surface; the sheets and the
+pink carry everything else.
+
+### What this replaced, and why
+
+The previous version was navy chrome on a cream page with yellow accents, rounded cards and
+floating pill tabs. It was competent and it was anonymous — the palette, the 14px radius,
+the soft shadow and the pill nav are what any dashboard ships. The first pass at improving
+it changed the typeface and rebuilt one tab but **kept that world**, which made it a
+refinement wearing a redesign's name. This is the replacement.
+
+### Directions considered and rejected
 
 | Considered | Rejected because |
 |---|---|
-| Editorial serif display on the cream page | Cream ground + high-contrast serif + warm accent is the single most recognisable generated-design cluster. The existing cream is defensible on its own; adding the serif would have completed the tell. |
-| Inverting to a dark "broadcast" ground | Dense numeric tables read worse reversed out, and the real use scene is a lit selection meeting, often printed or screenshotted. |
-| Keeping Inter + Space Grotesk | Both are on the overused list; two grotesques together also give no real contrast, so the hierarchy was doing no work. |
+| Editorial serif on a cream ground | Cream + high-contrast serif + warm accent is the most recognisable generated-design cluster there is. |
+| Floodlit night match: near-black with one neon accent | The second such cluster. Also loses printability for a panel that may print the page. |
+| Scorebook: paper, ruled columns, scorer's red and black | Genuinely good, and the closest rival. Rejected only because it is the furthest from the client's own identity, which is this entry's strongest argument. |
 
 ---
 
-## 2. Typography
+## 2. Colour
 
-**One superfamily, two widths.** Archivo, variable, width axis 62–125 and weight axis
-400–700. A single family deployed deliberately at two widths reads as a system; two
-unrelated families read as a template.
+Every pairing below was computed against WCAG before it was written into the file.
 
-Archivo is a grotesque in the signage and highway lettering lineage. Expanded and heavy it
-behaves like scoreboard lettering; at normal width it is a neutral, high-legibility data
-face. That range is exactly the two jobs this page has.
+| Token | Hex | Role | Measured |
+|---|---|---|---|
+| `--field` | `#0E1B4D` | Royals indigo. The page field | — |
+| `--field-d` | `#091233` | Header, deepest ground | — |
+| `--sheet` | `#F4EDE4` | Jaipur sandstone. Every data surface | — |
+| `--sheet-2` | `#EDE3D4` | Bar tracks, row hover, inset panels | — |
+| `--rule` | `#DBCFBB` | Hairlines on sandstone | — |
+| `--rule-d` | `#2B3B72` | Hairlines on indigo | — |
+| `--ink` | `#101733` | Text on sandstone | 15.16:1 |
+| `--ink-2` | `#555A70` | Secondary text on sandstone | 5.87:1 |
+| `--on` | `#EDEAF5` | Text on indigo | 13.79:1 |
+| `--on-2` | `#A3A9CE` | Secondary text on indigo | 7.11:1 |
+| `--pink` | `#ED2E8A` | RR pink. Live state, active tab, fills | — |
+| `--pink-ink` | `#C2186B` | Batter series: bars and text on sandstone | 4.97:1 |
+| `--saff` | `#A34D0A` | Bowler series: marigold, bars and text | 4.99:1 |
+| `--gold` | `#D9A441` | Identity accent, **on the indigo field only** | 7.28:1 |
+
+### Three findings that changed the palette
+
+- **Pink cannot be body text on indigo.** `#ED2E8A` on `#0E1B4D` is 4.18:1. It is used as a
+  fill, or as large text, never as small text on the field.
+- **Gold cannot be a bar on sandstone.** `#D9A441` on `#EDE3D4` is 1.77:1 — nearly invisible.
+  Gold was therefore confined to the dark field, where it reaches 7.28:1.
+- **The ≥75% stability chip is indigo, not gold.** Gold against sandstone edges at 1.94:1;
+  indigo reaches 13.79:1 and reads like a scorer inking a name in. Gold's intended job was
+  taken by the colour that could actually do it.
+
+Dark text on pink is `#280517` (4.77:1). The obvious `#3D0A24` measured 4.23:1 and was
+rejected. Dark text on the active tab is `#0A1024` (4.82:1); white would have been 3.92:1.
+
+---
+
+## 3. Typography
+
+**Archivo, one superfamily, three widths.** A single family deployed deliberately across its
+width axis reads as a system; two unrelated families read as a template. Archivo sits in the
+signage and highway-lettering lineage — expanded and heavy it behaves like board lettering,
+at normal width it is a neutral high-legibility data face.
 
 ```
 https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap
 ```
 
-| Role | Family | Width | Weight | Tracking | Used on |
-|---|---|---:|---:|---|---|
-| Display | Archivo | 112 | 700 | −0.02em | `h1.st`, `.brand .t`, `.drk`, `.dnm`, `.kept`, funnel figures |
-| Data / UI | Archivo | 100 | 400–600 | 0 | everything else |
-| Column heads | Archivo | 100 | 600 | 0.06em | `th`, `.shead` |
+| Role | Width | Weight | Tracking | Used on |
+|---|---:|---:|---|---|
+| Display | 125% | 700 | −0.025em | `h1.st`, wordmark, funnel figures, drawer rank |
+| Sub-display | 112% | 700 | −0.02em | section headings, `.kept`, `.lv` |
+| Data / UI | 100% | 400–700 | 0 | everything else |
 
-**Numerals.** `font-variant-numeric: tabular-nums` is set globally on `:root` and never
-switched off. Every rating, percentage and rank sits in a fixed-width column; proportional
-figures would make the rankings jitter between states in the What if? tab.
-
-**Scale.** 36 / 26 / 23 / 19 / 17 / 15 / 14 / 13 px. Steps are large enough to be read as
-intentional. Nothing between 19 and 23.
+**Numerals are tabular everywhere**, set on `:root` and never switched off. Verified in the
+browser rather than assumed: `11111` and `00000` both render at exactly 45.45px, so rankings
+cannot jitter as the What if? tab re-ranks.
 
 ---
 
-## 3. Colour
+## 4. Form
 
-The palette is unchanged — it was the page's strongest existing asset and is not a default.
-Only the muted grey moved, for contrast.
+The old world's signature was the rounded floating card. This one's is **the sheet on the
+field**: a flat sandstone plane laid on indigo, squared off, with no shadow doing work that
+contrast already does.
 
-| Token | Hex | Role |
-|---|---|---|
-| Navy | `#14213D` | Header, ink, inverted panels |
-| Paper | `#F5F4EF` | Page ground |
-| Panel | `#FCFBF8` | Raised surfaces |
-| Rule | `#E2E0D8` | Hairlines, borders |
-| Yellow | `#FFE47A` | The single accent. Marks *the answer* and nothing else |
-| Batter blue | `#2A78D6` | Batter column identity |
-| Bowler orange | `#D4572A` | Bowler column identity |
-| Ink | `#3B4252` | Body text |
-| Muted | `#5A6273` | Secondary text — **darkened from `#6B7280`** |
-| Funnel track | `#EAE7DC` | The "everything else" ground in the method bar |
-| Funnel figure | `#7E7763` | De-emphasised figure on that track (3.60:1) |
-| Funnel caption | `#69624E` | De-emphasised caption on that track (4.91:1) |
-
-**Why the muted grey changed.** `#6B7280` on `#FCFBF8` computes to 4.67:1 — technically a
-pass for 14px body text, but with no margin, and it was carrying `.fine`, `.nextl`, `.drop`
-and the footer. `#5A6273` computes to **5.92:1** on the same ground.
-
-**Accent discipline.** Yellow means "this is the answer". It is allowed on: the selected
-tab, the stability figures at or above 75%, the primary call to action, and the final stage
-of the method funnel. It is not decoration anywhere else.
+- **Radius:** 4px on sheets, 3px on controls and chips. Nothing is a pill. The previous
+  999px nav pills and stability pills are gone, and that single change carries much of the
+  difference in feel.
+- **Elevation:** only the drawer and the first-run cue cast a shadow, because only they
+  genuinely float. Sheets sit flat.
+- **Navigation:** one connected segmented control with hairline dividers, not four floating
+  pills. The active tab is a solid pink plate.
+- **Series identity:** a 2px rule under each sheet's title in that series' colour — pink for
+  batters, marigold for bowlers — replacing the old 5px coloured card-top border.
+- **No coloured `border-left` callouts**, no gradient text, no glass, no decorative blur.
 
 ---
 
-## 4. What was removed
+## 5. The method tab
 
-Simplification was a brief requirement, so removals are specified as precisely as additions.
+Eight identical cards of numbered-circle-plus-heading, joined by unicode arrows, each padded
+to a 205px minimum so the short ones held visible dead air. It described the pipeline without
+showing it.
 
-| Removed | Count | Reason |
-|---|---:|---|
-| `.eb` eyebrow above every heading | 4 | A tracked all-caps kicker above a heading is template chrome. The headings carry themselves. |
-| Middle-dot meta string in the header | 1 | `A · B · C` is generated-page furniture. Replaced with a plain subtitle and the author set apart. |
-| `.turn` "↓ then" connector | 1 | A unicode arrow doing a job the layout already does. |
-| Eight-card method grid | 8 cards | Same-size cards of number + heading + text, used as the page structure, is the clearest generated-design tell on the site. Replaced per §5. |
-| Three navy stat tiles | 3 | The hero-metric template: big number, small label, accent colour. Replaced with a ruled ledger. |
-| Unicode glyphs as icons | `›` `→` `↓` `×` | Replaced by a drawn icon set, §6. The footer's `←` `→` stay: they name physical keys. |
-| Tracked all-caps UI labels | 2 | `PICK A WHAT IF` / `OR MIX YOUR OWN` are template chrome. Now sentence case, weighted. Table column heads keep caps — that is scorecard convention, not decoration. |
+It is now **a single proportional bar**: 35,172 pressure balls in pink against 140,690 that
+could not swing a match. One graphic makes the whole argument.
 
----
-
-## 5. The method tab, rebuilt
-
-The old screen was eight equal cards in a 4×2 grid joined by arrows, each card padded to a
-205px minimum so the short ones held visible dead air, with the lower third of the stage
-empty. It described the pipeline without ever showing it.
-
-It is replaced by **a funnel that shows the actual data reduction, with the real counts**:
-
-```
-883 matches audited
-  └ 735 rated ............................ IPL 2022–26 + full-member T20Is
-      └ 175,862 balls
-          └ 35,172 pressure balls ........ top 20% of the Index, ~48 a match
-```
-
-- The funnel is a **single full-width proportional bar**: 175,862 balls, with the top 20%
-  filled in yellow. This is the one loud element on the tab, and it is a real data graphic
-  rather than a decorative shape.
-- Beneath it the six modelling steps run as **one row separated by vertical hairlines**, no
-  card chrome at all: number, title, one line of explanation.
-- Step numbers are kept here, and only here, because the content genuinely is an ordered
-  pipeline — each step consumes the previous step's output.
+Below it, two bars for where pressure actually falls. These are **two separate cuts, not
+parts of one whole** — 77% in the chase and 45% in the middle overs do not sum to anything,
+so they are never stacked into a single fake total. Then six steps on a hairline spine, no
+card chrome. Step numbers survive here, and only here, because the content genuinely is an
+ordered pipeline.
 
 ---
 
 ## 6. Icons
 
-A drawn set, not glyphs. All icons share one specification so they read as one hand:
+Drawn, never glyphs. One specification so the set reads as one hand:
 
 - 24×24 viewBox, `fill: none`, `stroke: currentColor`
-- `stroke-width: 1.8`, `stroke-linecap: round`, `stroke-linejoin: round`
-- Sized by the element, coloured by `currentColor`, never given their own colour
-- Always `aria-hidden="true"` — every icon sits beside a real text label
+- `stroke-width: 1.8`, round caps and joins
+- Coloured by `currentColor`, sized by the element, always `aria-hidden`
 
-Set: cursor (click affordance), arrow-right (navigation), sliders (settings), close.
+Set: cursor, arrow-right, sliders, close. The footer's `←` `→` remain as text because they
+name physical keys rather than standing in for icons.
 
 ---
 
 ## 7. Motion
 
-**One authored moment per interaction, nothing ambient.** No entrance animation plays
-without a user action behind it.
+One authored moment per interaction; nothing ambient.
 
 | Moment | Duration | Easing |
 |---|---:|---|
 | Tab change | 280ms | `ease-out` |
 | Drawer open | 250ms | `ease-out` |
 | First-run cue | 420ms | `cubic-bezier(.16,1,.3,1)` |
-| Hover / state feedback | 120–150ms | `ease` |
+| State feedback | 120–150ms | `ease` |
 
-Everything above is disabled under `prefers-reduced-motion: reduce`, including the tab
-entrance and the drawer slide — not just the decorative cue.
+All of it, including the tab entrance and the drawer slide, is disabled under
+`prefers-reduced-motion: reduce`.
 
 ---
 
 ## 8. Browser surfaces
 
-The parts not drawn by hand still belong to the design:
-
-- `::selection` — navy on yellow
-- Drawer elevation — neutral `rgba(0,0,0,.16)`, offset and blurred; never a tinted halo
-- `:focus-visible` — 2.5px ring, blue on light ground, yellow on navy, offset 2px
-- Drawer scrollbar — 10px, rule-coloured thumb on panel track
-- Table figures — tabular numerals throughout
+- `::selection` — pink ground, near-black text
+- `:focus-visible` — 2.5px ring: gold on the indigo field, pink on batter rows, marigold on
+  bowler rows
+- Drawer scrollbar — themed thumb and track, not the browser default
+- Tabular figures throughout
 
 ---
 
 ## 9. Quality floor
 
-Checked on the built result, not intended:
+Measured on the built result:
 
-- Body text ≥ 4.5:1, large text and non-text UI ≥ 3:1
-- Every interactive element reachable and visibly focused by keyboard
-- Correct ARIA tablist wiring: `aria-controls`, `aria-labelledby`, `aria-selected`
-- No console errors
-- No overflow on any tab at the fixed 1600×900 stage
-- `localStorage` access wrapped in `try/catch` — the page works with storage blocked
+- **0 contrast failures** across all four tabs, audited against computed styles in the
+  browser rather than against the stylesheet
+- **0 design-detector findings** (was 13 before this work began)
+- 14 of 14 keyboard stops show a colour-correct focus ring
+- Correct ARIA tablist wiring throughout
+- No console errors; no overflow on any tab at the fixed 1600×900 stage
+- The page works with `localStorage` blocked
